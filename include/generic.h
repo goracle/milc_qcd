@@ -107,6 +107,46 @@ void ape_smear(
 			     as a prescribed number of hits. */ 
   );
 
+/* Smear in a specified source direction and set of staples. */
+void ape_smear_dir_stap(
+  field_offset src,       /* field offset for su3_matrix[4] type 
+                             input unsmeared links */
+  int dir1,               /* link direction to smear */
+  field_offset dest,      /* field offset for su3_matrix type 
+                             pointing to a specific direction 
+                             output smeared links */
+  Real staple_weight,    /* single staple weight */
+  Real link_u0,          /* single link weight - used in normalization
+                             if SU(3) projection is turned off */
+  int stap[],            /*  stap[mu] = 1 (true) if mu staples used, 
+                             else stap[mu]=0 (false) */
+  int nhits,              /* reproject onto SU(3): number of 
+                             SU(2) hits. 0 for no reprojection */
+  Real tol               /* tolerance for SU(3) projection.
+                             If nonzero, treat nhits as a maximum
+                             number of hits.  If zero, treat nhits
+                             as a prescribed number of hits. */
+  );
+
+/* Smear in a specified source direction and set of staples. */
+void ape_smear_field_dir_stap(
+  su3_matrix *src,        /* su3_matrix[4] type 
+                             input unsmeared links */
+  int dir1,               /* link direction to smear */
+  su3_matrix *dest,       /* su3_matrix[4] type smeared links */
+  Real staple_weight,    /* single staple weight */
+  Real link_u0,          /* single link weight - used in normalization
+                             if SU(3) projection is turned off */
+  int stap[],            /*  stap[mu] = 1 (true) if mu staples used, 
+                             else stap[mu]=0 (false) */
+  int nhits,              /* reproject onto SU(3): number of 
+                             SU(2) hits. 0 for no reprojection */
+  Real tol               /* tolerance for SU(3) projection.
+                             If nonzero, treat nhits as a maximum
+                             number of hits.  If zero, treat nhits
+                             as a prescribed number of hits. */
+  );
+
 su3_matrix *ape_smear_3D(Real staple_weight, int iters);
 su3_matrix *ape_smear_4D(Real staple_weight, int iters);
 void destroy_ape_links_3D(su3_matrix *ape_links);
@@ -126,6 +166,9 @@ void d_linktrsum(double_complex *linktrsum);
 
 /* d_plaq?.c */
 void d_plaquette(double *ss_plaq,double *st_plaq);
+
+/* d_plaq6.c */
+void d_plaquette6(double plaq[]);
 
 /* discretize_wf.c */
 void fnal_wavefunction(complex *wf, int stride,
@@ -306,7 +349,7 @@ double imp_gauge_action(void);
 void g_measure(void);
 void make_loop_table(void);
 #ifdef ANISOTROPY
-void path_determine_st(void);
+void path_determine_ani(void);
 #endif
 void dsdu_qhb_subl(int dir, int subl);
 int get_max_length(void);
@@ -369,6 +412,7 @@ int get_s( FILE *fp, int prompt, char *variable_name_string, char *value );
 int get_sn( FILE *fp, int prompt, char *variable_name_string, char *value );
 int get_vs( FILE *fp, int prompt, char *tag, char *value[], int nvalues );
 int get_prompt( FILE *fp, int *value );
+int dirchar2index( char buf, int *status );
 
 /* io_source_cmplx_fm.c */
 void r_source_cmplx_fm_to_site(char *filename, field_offset dest_site,
