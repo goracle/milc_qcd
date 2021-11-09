@@ -135,10 +135,10 @@ mat.e[2][2].real=1.; }
 
 #if ( (defined AX_GAUGE && (defined APE_4D_SMEARING || defined APE_1D2_SMEARING ) ) )
   /* restore axial gauge if needed */
-  if ( fixflag == AXIAL_GAUGE_FIX ) {
-    //node0_printf("Recover axial gauge buffers\n");
-    ax_gauge(); 
-  }
+  //if ( fixflag == AXIAL_GAUGE_FIX ) {//~dsh
+    //node0_printf("Recover axial gauge buffers\n");//~dsh
+    //ax_gauge(); //~dsh
+  //}//~dsh
 #endif
 
 } /* smearing */

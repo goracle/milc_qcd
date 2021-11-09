@@ -63,7 +63,8 @@ void smearing( void ) {
   set_hyp_coeff( &hc, hyp_alpha1, hyp_alpha2, hyp_alpha3 );
   set_hyp_proj_method( &hc, HYP_SU3_TR_MAX, 9 );
 
-#ifdef HYP_3D_SMEARING
+//#ifdef HYP_3D_SMEARING//~dsh
+#if 0//~dsh
   // HYP-smeared links, TUP excluded
   load_hyp_links(U_link, hyp_link, xc[TUP], &hc);
 
@@ -71,7 +72,8 @@ void smearing( void ) {
   FORALLSITES(i,st)for(dir=XUP;dir<TUP;dir++){
     st->link[dir] = hyp_link[4*i+dir];
   }
-#elif defined HYP_4D_SMEARING
+//#elif defined HYP_4D_SMEARING//~dsh
+#else//~dsh
   // HYP-smeared links, none excluded
   load_hyp_links(U_link, hyp_link, NODIR, &hc);
 

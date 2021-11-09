@@ -47,6 +47,7 @@ int main(int argc, char *argv[])  {
      fflush(stderr);
      terminate(1);
     }
+    //saveflag = SAVE_SERIAL;
     if (saveflag == FORGET) {
      node0_printf("Should save the gauge-fixed lattice when doing only gauge fixing\n");
      fflush(stderr);
@@ -129,8 +130,8 @@ int main(int argc, char *argv[])  {
 #else // ELSE OF #ifndef WLOOP_MEAS 
     
     /* fix to axial gauge */
-    if( startflag != CONTINUE){
-      ax_gauge();
+    if( startflag != CONTINUE && 0){ //~dsh
+      //ax_gauge();//~dsh
       fixflag = AXIAL_GAUGE_FIX;
       tot_smear = 0;
     }
@@ -194,12 +195,13 @@ int main(int argc, char *argv[])  {
     fflush(stdout);
     dtime = -dclock();
     
-#ifndef SMEARING
+//#ifndef SMEARING
+    //saveflag = SAVE_SERIAL;
     /* save lattice if requested */
-    if( saveflag != FORGET ){
+    //if( saveflag != FORGET ){//~dsh
       save_lattice( saveflag, savefile, stringLFN );
-    }
-#endif
+    //}//~dsh
+//#endif
   }
   return 0;
 }
